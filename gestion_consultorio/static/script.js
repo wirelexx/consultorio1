@@ -1,11 +1,8 @@
-(function() {
-   const btnDelete = document.querySelectorAll('.btn-delete');
-   const btnArray = Array.from(btnDelete);
-   btnArray.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      if(!confirm('¿Está seguro que desea eliminar?')) {
-          e.preventDefault();
-      }
-    }); 
-  });
- }());
+function editar_paciente(boton){
+  var str = boton.value;
+  alert(str);
+  var res = str.split(",");
+  document.getElementById("input_id_paciente").value=res[0];
+  document.getElementById("input_nombre_paciente").value=res[1];
+  document.getElementById("input_apellido_paciente").value=res[2];
+}

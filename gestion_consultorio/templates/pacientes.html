@@ -1,49 +1,45 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <div class="container">
-    <h1 style="color:white">Pacientes</h1>
-    <p style="color:white">Utiliza la barra inferior para buscar pacientes por Id,Nombre,Apellido</p>
-        
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
-      </div>
-      <input type="text" class="form-control" id="buscar_tabla" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-
-  <div class="container">
-    
-  </div>
-
 <div class="container">
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#nuevo_paciente">Nuevo Paciente</button>
-<div id="div1" class ="col-md-9">
-        <table border="1" class="table table-hover table-bordered bg-white table-sm">
-            <thead class="thead-dark">             
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-            <tbody id="tabla_pacientes">
-                {% for unPaciente in pacientes %}
-                <tr>
-                    <td>{{unPaciente.id}}</td>
-                    <td>{{unPaciente.nombre}}</td>
-                    <td>{{unPaciente.apellido}}</td>
-                    <td>
-                      <a href="" class="btn btn-info btn-sm">Editar</a>
-                      <a href="{% url 'eliminar_paciente' unPaciente.id %}" class="btn btn-danger btn-sm btn-delete" id="btn-delete">Eliminar</a>                
-                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo_turno" onclick="mostrarvalor(this);" value={{ unPaciente.id }},{{unPaciente.nombre}},{{unPaciente.apellido}}>Nuevo turno</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+  <h1 style="color:white">Pacientes</h1>
+  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#nuevo_paciente">Nuevo Paciente</button>
+  <p style="color:white">Utiliza la barra inferior para buscar pacientes por Id,Nombre,Apellido</p>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+    </div>
+    <input type="text" class="form-control" id="buscar_tabla" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+  </div>
 </div>
+<div class="container">
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_pacientes">
+        {% for unPaciente in pacientes %}
+          <tr>
+            <td style="display:none;">{{unPaciente.id}}</td>
+            <td>{{unPaciente.nombre}}</td>
+            <td>{{unPaciente.apellido}}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editar_paciente" onclick="editar_paciente(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Editar</button>
+              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo_turno" onclick="mostrarvalor(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Nuevo turno</button>
+              <a href="{% url 'historia_clinica' unPaciente.id %}" class="btn btn-info btn-sm">Hist. Clinica</a>
+              <a href="{% url 'eliminar_paciente' unPaciente.id %}" class="btn btn-danger btn-sm btn-delete" id="btn-delete">Eliminar</a>                
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
     <!-- ventana modal nuevo paciente -->
   <div class="modal fade" id="nuevo_paciente" role="dialog">
@@ -66,6 +62,32 @@
       </div>
     </div>
   </div>
+
+    <!-- ventana modal editar paciente -->
+  <div class="modal fade" id="editar_paciente" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Editar paciente</h4>
+          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        <form action="{% url 'pacientes' %}" method="post"> 
+            {% csrf_token %}
+              <input type="hidden" value="form_editar_paciente" name="id_post">
+              <input type="hidden" id="input_id_paciente_editar" name="id_paciente">
+              <p>Nombre   <input type="text" id="input_nombre_paciente" name="nombre_paciente" maxlength="20" required></p>
+              <p>Apellido <input type="text" id="input_apellido_paciente" name="apellido_paciente" maxlength="20" required></p>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" value="Guardar">
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
       <!-- ventana modal nuevo turno -->
   <div class="modal fade" id="nuevo_turno" role="dialog">
     <div class="modal-dialog">
@@ -78,8 +100,9 @@
           <p id="nombre_paciente"></p>
         <form action="{% url 'pacientes' %}" method="post">
             {% csrf_token %} 
-            <input type="hidden" id="input_id_paciente" name="id_paciente">
+            <input type="hidden" id="input_id_paciente_nuevo_turno" name="id_paciente">
             <input type="hidden" id="input_id_medico" name="id_medico">
+            <input type="hidden" value="form_nuevo_turno" name="id_post">
             <p> Seleccione Fecha: <input type="date"  id="input_date" name="fecha_turno" required></p>
             <p> Seleccione Hora: <input type="time" id="input_time" name="hora_turno" required>
             <p> Seleccione Medico: <select name"medicos" onclick="select_medico()" id="tabla_medico"></p>
@@ -113,28 +136,38 @@
 
     function mostrarvalor(boton){
       var str = boton.value;
+      alert(str);
       var res = str.split(",");
-      document.getElementById("input_id_paciente").value=res[0];
+      document.getElementById("input_id_paciente_nuevo_turno").value=res[0];
       document.getElementById("nombre_paciente").innerHTML="Nuevo turno Paciente: "+res[1]+" "+res[2];
       
       var id_medico = document.getElementById("tabla_medico");
       document.getElementById("input_id_medico").value=id_medico.value;
     }
 
+
+
     function select_medico(){
       var id_medico = document.getElementById("tabla_medico");
       document.getElementById("input_id_medico").value=id_medico.value;
     }
 
-    // Filter table
-
-$(document).ready(function(){
-  $("#buscar_tabla").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#tabla_pacientes tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function(){
+      $("#buscar_tabla").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#tabla_pacientes tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  });
-});
+
+  function editar_paciente(boton){
+  var str = boton.value;
+  alert(str);
+  var res = str.split(",");
+  document.getElementById("input_id_paciente_editar").value=res[0];
+  document.getElementById("input_nombre_paciente").value=res[1];
+  document.getElementById("input_apellido_paciente").value=res[2];
+}
   </script>
 {% endblock %}

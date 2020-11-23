@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container">
+  <h1 style="color:white">Historia Clinica</h1>
+  <h2 style="color:white">Paciente: {{paciente.apellido}}, {{paciente.nombre}}</h2>
+  <div class="input-group mb-3">
+</div>
+<div class="container">
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Medico</th>
+          <th scope="col">Descripcion</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_historia_clinica">
+        {% for movimiento in historia_clinica %}
+          <tr>
+            <td>{{movimiento.fecha|date:"d/m/Y"}}</td>
+            <td>{{movimiento.id_medico}}</td>
+            <td>{{movimiento.descripcion}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
