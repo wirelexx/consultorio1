@@ -89,9 +89,7 @@ def turnos(request):
         usuario_nombre = request.user.first_name
         usuario_apellido = request.user.last_name
         idmedico = medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)
-        print(idmedico)
-
-    return render(request,"turnos.html", {"medicos":medico.objects.all(),"turnos": turno.objects.filter(id_medico=medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)).order_by('fecha_turno','hora_turno')})
+    return render(request,"turnos.html", {"medicos":medico.objects.all(),"turnos": turno.objects.filter(id_medico=idmedico).order_by('fecha_turno','hora_turno')})
 
 def acceso_eliminar_pacientes(user):
     #define que grupos pueden acceder a la vista de elipacientes
