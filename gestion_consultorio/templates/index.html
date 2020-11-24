@@ -2,4 +2,12 @@
 {% block body %}
     <h1 style="color:white;">Gestion de Consultorio</h1>
     <h2 style="color:white;">Oftalmologico</h2>
+
+    <h1>Bienvenido, {{ request.user.first_name }}</h1>
+    
+
+    <ul>
+        <li>Usuario: {{ request.user.username }}</li>
+        <li>Email: {{ request.user.email }}</li>
+    </ul>
 {% endblock %}

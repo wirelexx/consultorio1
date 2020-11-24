@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1 style="color:white;">Gestion de Consultorio</h1>
+    <h2 style="color:white;">Oftalmologico</h2>
+
+    {% if mensaje %}
+        <div>{{ mensaje }}</div>
+    {% endif %}
+
+    <div class="container" style="margin: auto">
+        <div style="margin: auto; text-align: center;">
+        <br>
+        <p style="color:white">Ingrese sus credenciales</p>
+            <form action="{% url 'login_view' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username"><br><br>
+                <input type="password" name="password" placeholder="Password"><br><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+{% endblock %}

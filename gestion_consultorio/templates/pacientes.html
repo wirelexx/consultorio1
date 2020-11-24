@@ -30,10 +30,19 @@
             <td>{{unPaciente.nombre}}</td>
             <td>{{unPaciente.apellido}}</td>
             <td>
-              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editar_paciente" onclick="editar_paciente(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Editar</button>
-              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo_turno" onclick="mostrarvalor(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Nuevo turno</button>
-              <a href="{% url 'historia_clinica' unPaciente.id %}" class="btn btn-info btn-sm">Hist. Clinica</a>
-              <a href="{% url 'eliminar_paciente' unPaciente.id %}" class="btn btn-danger btn-sm btn-delete" id="btn-delete">Eliminar</a>                
+              {% if perms.gestion_consultorio.change_paciente %}
+              <!--crea los botones habilitados-->
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editar_paciente" onclick="editar_paciente(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Editar</button>
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo_turno" onclick="mostrarvalor(this);" value="{{unPaciente.id}},{{unPaciente.nombre}},{{unPaciente.apellido}}">Nuevo turno</button>
+                <a href="{% url 'historia_clinica' unPaciente.id %}" class="btn btn-info btn-sm">Hist. Clinica</a>
+                <a href="{% url 'eliminar_paciente' unPaciente.id %}" class="btn btn-danger btn-sm btn-delete" id="btn-delete">Eliminar</a>                
+              {% else %}
+              <!--genera los botones vacios-->
+                <button type="button" class="btn btn-info btn-sm" disabled>Editar</button>
+                <button type="button" class="btn btn-success btn-sm" disabled>Nuevo turno</button>
+                <a href="{% url 'historia_clinica' unPaciente.id %}" class="btn btn-info btn-sm">Hist. Clinica</a>
+                <button href="" class="btn btn-danger btn-sm btn-delete" disabled>Eliminar</button>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
