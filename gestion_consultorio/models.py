@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import datetime
 
 # Create your models here.
@@ -20,6 +21,7 @@ class turno(models.Model):
     fecha_turno =  models.DateField()
     hora_turno =  models.TimeField()
     id_medico = models.ForeignKey(medico, on_delete=models.CASCADE)
+    estado_turno = models.CharField(max_length=32, default='PENDIENTE', choices=[('PENDIENTE','pendiente'),('AUSENTE','ausente'),('ATENDIDO','atendido')])
 
 class historia_medica(models.Model):
     id_paciente = models.ForeignKey(paciente, on_delete=models.CASCADE)
@@ -28,6 +30,32 @@ class historia_medica(models.Model):
     descripcion = models.TextField(blank=True)
 
 
+class producto(models.Model):
+    nombre_producto = models.CharField(max_length=64)
+    precio = models.DecimalField(max_digits=8, decimal_places=2)
 
+    clasificacion = models.CharField(max_length=32, choices=[('LENTE','lente'),('ACCESORIO','accesorio'),('ETC','etc')])
+    
+    distacia_vision = models.CharField(max_length=10)
+
+    ojo_vision = models.CharField(max_length=32, choices=[('IZQUIERDO','izquierdo'),('DERECHO','derecho')])
+  
+    armazon = models.BooleanField
+
+    estado = models.CharField(max_length=32, choices=[('PENDIENTE','pendiente'),('FINALIZADO','finalizado')])
+    
+    def __str__(self):
+        return f"{self.nombre_producto} {self.precio} {self.distacia_vision} {self.ojo_vision} {self.armazon} {self.estado}"
+
+
+class venta(models.Model):
+    id_paciente = models.ForeignKey(paciente, on_delete=models.CASCADE)
+    fecha_venta = models.DateField(default=datetime.datetime(2000,1,31))
+    # total_vent = nombre_producto = models.CharField(max_length=64)
+    #   id_User = models.ForeignKey(User, on_delete = models.CASCADE)
+
+class detalle_venta(models.Model):
+    id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(producto, on_delete=models.CASCADE)
 
 
