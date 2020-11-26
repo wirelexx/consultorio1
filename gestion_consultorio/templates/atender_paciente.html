@@ -7,5 +7,57 @@
   <div class="input-group mb-3">
 </div>
 
+>
+<div class="container">
+  <form action="{% url 'graba_hclinica' %}" method="post">
+    {% csrf_token %} 
+    <div>
+      <label style="color:white;">Seleccione fecha:</label>&nbsp;&nbsp;&nbsp;<input type="date" name="fecha" id="input_fecha">
+    </div>
+    <br>
+    <textarea name="movimiento" rows="4" cols="120" required placeholder="Ingrese aqui las observaciones..."></textarea>
+    <input type="hidden" name="id_turno" value={{turno.id}}>
+    <input type="submit" class="btn btn-success btn-sm" value="Finalizar Atencion">
+  </form>
+</div>
+<br>
+<div class="container">
+  <label style="color:white;">Historia Clinica</label>
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Medico</th>
+          <th scope="col">Descripcion</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_historia_clinica">
+        {% for movimiento in historia_clinica %}
+          <tr>
+            <td>{{movimiento.fecha|date:"d/m/Y"}}</td>
+            <td>{{movimiento.id_medico}}</td>
+            <td>{{movimiento.descripcion}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>  
+  window.onload = function(){
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var anio = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+      dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('input_fecha').value=anio+"-"+mes+"-"+dia;
+  }
+</script>
 {% endblock %}
 

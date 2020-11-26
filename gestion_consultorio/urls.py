@@ -12,4 +12,7 @@ urlpatterns = [
     path("login", views.login_view, name="login_view"),
     path("logout", views.logout_view, name="logout_view"),
     path("errorpermisos", views.errorpermisos, name="errorpermisos"),
+    path("graba_hclinica", views.graba_hclinica, name="graba_hclinica"),
+    path("<int:turno_id>/ausente_paciente", views.ausente_paciente, name="ausente_paciente"),
+    path("<int:turno_id>/eliminar_turno", views.eliminar_turno, name="eliminar_turno"),
 ]

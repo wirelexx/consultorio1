@@ -53,17 +53,21 @@
                     <td>{{unTurno.hora_turno|time:"H:i"}}</td>
                     <td>{{unTurno.estado_turno}}</td>
                     <td>
+                      {% if unTurno.estado_turno == "PENDIENTE" %}
                         {% if perms.gestion_consultorio.change_turno %}
                         <!--crea los botones habilitados-->
                           <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editar_turno" onclick="editar_turno(this);" value="{{unTurno.id}}#{{unTurno.id_paciente}}#{{unTurno.id_medico}}#{{unTurno.fecha_turno|date:"d/m/Y"}}#{{unTurno.hora_turno|time:"H:i"}}">Modificar</button>
                           <button type="button" class="btn btn-success btn-sm" disabled>Atender</button>
-                          <button type="button" href="" class="btn btn-danger btn-sm btn-delete">Ausente</button>                
+                          <a href="{% url 'ausente_paciente' unTurno.id %}" class="btn btn-warning btn-sm btn-delete">Ausente</a>
+                          <a href="{% url 'eliminar_turno' unTurno.id %}" class="btn btn-danger btn-sm btn-delete">Eliminar</a>                
                         {% else %}
                         <!--genera los botones vacios-->
                           <button type="button" class="btn btn-info btn-sm" disabled>Modificar</button>
-                          <button type="button" href="{% url 'atender_paciente' unTurno.id %}" class="btn btn-success btn-sm">Atender</button>
-                          <button type="button" class="btn btn-danger btn-sm btn-delete" disabled>Ausente</button>  
+                          <a href="{% url 'atender_paciente' unTurno.id %}" class="btn btn-success btn-sm">Atender</a>
+                          <button type="button" class="btn btn-warning btn-sm btn-delete" disabled>Ausente</button>
+                          <button class="btn btn-danger btn-sm btn-delete" disabled>Eliminar</button>  
                         {% endif %}
+                      {% endif %}
                     </td>
                 </tr>
             {% endfor %}

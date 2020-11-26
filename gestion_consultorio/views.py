@@ -128,7 +128,8 @@ def historia_clinica(request, paciente_id):
 
 @login_required(login_url='login_view')
 def atender_paciente(request, turno_id):
-    return render(request,"atender_paciente.html",{"turno":turno.objects.get(pk=turno_id)})
+    paciente_id= turno.objects.get(pk=turno_id).id_paciente
+    return render(request,"atender_paciente.html",{"turno":turno.objects.get(pk=turno_id),"historia_clinica": historia_medica.objects.filter(id_paciente=paciente_id)})
 
 class FormNuevoPaciente(forms.Form):
     nombre = forms.CharField(label="Nombre")
@@ -153,6 +154,36 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "login.html", {"mensaje": "Desconectado."})
+
+@login_required(login_url='login_view')
+def graba_hclinica(request):
+    if request.method == "POST":
+        m = historia_medica()
+        m.id_medico=turno.objects.get(pk=int(request.POST['id_turno'])).id_medico
+        m.id_paciente=turno.objects.get(pk=int(request.POST['id_turno'])).id_paciente   
+        m.fecha=request.POST['fecha']
+        m.descripcion=request.POST['movimiento']
+        m.save()
+        id_turno=request.POST['id_turno']
+        t = turno()
+        t = turno.objects.get(pk=int(id_turno))
+        t.estado_turno = "ATENDIDO"
+        t.save()
+    return HttpResponseRedirect(reverse('turnos'))
+
+@login_required(login_url='login_view')
+def ausente_paciente(request, turno_id):
+    t = turno.objects.get(pk=turno_id)
+    t.estado_turno = "AUSENTE"
+    t.save()
+    return HttpResponseRedirect(reverse('turnos'))
+
+@login_required(login_url='login_view')
+def eliminar_turno(request, turno_id):
+    t = turno.objects.get(pk=turno_id)
+    t.delete()
+    return HttpResponseRedirect(reverse('turnos'))
+
 
 
 
