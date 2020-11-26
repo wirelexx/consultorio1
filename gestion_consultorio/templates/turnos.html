@@ -57,12 +57,12 @@
                         <!--crea los botones habilitados-->
                           <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editar_turno" onclick="editar_turno(this);" value="{{unTurno.id}}#{{unTurno.id_paciente}}#{{unTurno.id_medico}}#{{unTurno.fecha_turno|date:"d/m/Y"}}#{{unTurno.hora_turno|time:"H:i"}}">Modificar</button>
                           <button type="button" class="btn btn-success btn-sm" disabled>Atender</button>
-                          <button type="button" href="" class="btn btn-danger btn-sm btn-delete">Eliminar</button>                
+                          <button type="button" href="" class="btn btn-danger btn-sm btn-delete">Ausente</button>                
                         {% else %}
                         <!--genera los botones vacios-->
                           <button type="button" class="btn btn-info btn-sm" disabled>Modificar</button>
                           <button type="button" href="{% url 'atender_paciente' unTurno.id %}" class="btn btn-success btn-sm">Atender</button>
-                          <button type="button" class="btn btn-danger btn-sm btn-delete" disabled>Eliminar</button>  
+                          <button type="button" class="btn btn-danger btn-sm btn-delete" disabled>Ausente</button>  
                         {% endif %}
                     </td>
                 </tr>
