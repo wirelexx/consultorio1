@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 import datetime
 
 # Create your models here.
@@ -36,7 +36,7 @@ class producto(models.Model):
 
     clasificacion = models.CharField(max_length=32, choices=[('LENTE','lente'),('ACCESORIO','accesorio'),('ETC','etc')])
     
-    distacia_vision = models.CharField(max_length=10)
+    distacia_vision = models.CharField(max_length=10,choices=[('LEJOS','lejos'),('CERCA','cerca')])
 
     ojo_vision = models.CharField(max_length=32, choices=[('IZQUIERDO','izquierdo'),('DERECHO','derecho')])
   
@@ -51,8 +51,9 @@ class producto(models.Model):
 class venta(models.Model):
     id_paciente = models.ForeignKey(paciente, on_delete=models.CASCADE)
     fecha_venta = models.DateField(default=datetime.datetime(2000,1,31))
-    # total_vent = nombre_producto = models.CharField(max_length=64)
-    #   id_User = models.ForeignKey(User, on_delete = models.CASCADE)
+    total_vent = models.DecimalField(max_digits=8, decimal_places=2)
+    id_User = models.ForeignKey(User, on_delete = models.CASCADE, blank=True)
+    forma_de_pago = models.CharField(max_length=32, choices=[('EFECTIVO','efectivo'),('TARJETA DE CREDITO','tarjeta de credito'),('DEBITO','debito'),('BILLETERA VIRTUAL','billetera virtual')],blank=True)
 
 class detalle_venta(models.Model):
     id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)

@@ -149,7 +149,6 @@
 
     function mostrarvalor(boton){
       var str = boton.value;
-      alert(str);
       var res = str.split(",");
       document.getElementById("input_id_paciente_nuevo_turno").value=res[0];
       document.getElementById("nombre_paciente").innerHTML="Nuevo turno Paciente: "+res[1]+" "+res[2];
@@ -176,7 +175,6 @@
 
   function editar_paciente(boton){
   var str = boton.value;
-  alert(str);
   var res = str.split(",");
   document.getElementById("input_id_paciente_editar").value=res[0];
   document.getElementById("input_nombre_paciente").value=res[1];
