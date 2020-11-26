@@ -87,6 +87,7 @@ def turnos(request):
             t.fecha_turno=request.POST['fecha_turno']
             t.save()
             return HttpResponseRedirect(reverse('turnos'))
+        
         elif request.POST['id_post'] == "form_filtrar_turno":
             fecha_dividida=request.POST['fecha'].split("-")
             if request.POST['opcion_fecha_filtro']=="dia":
