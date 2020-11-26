@@ -2,29 +2,33 @@
 {% block body %}
 <div class="container">
   <h1 style="color:white">Turnos</h1>
-  <p style="color:white">Seleccione fecha en el control inferior para buscar turnos por dia/mes/año</p>
+  <p style="color:white">Seleccione fecha en el control inferior para buscar turnos por dia/mes/año. Por defecto se muestran los turnos del dia</p>
 </div>
 <div class="container">
   <form action="{% url 'turnos' %}" method="post">
   {% csrf_token %}
-  <input type="date" name="fecha">
+  <label style="color:white;">Seleccione Fecha: <input type="date" name="fecha" id="input_fecha"></label>&nbsp;&nbsp;&nbsp;
   <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" id="customRadioInline1" name="opcion_dia" class="custom-control-input">
+    <input type="radio" id="customRadioInline1" name="opcion_fecha_filtro" value="dia" class="custom-control-input" checked>
     <label class="custom-control-label" for="customRadioInline1">Dia</label>
   </div>
   <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" id="customRadioInline2" name="opcion_mes" class="custom-control-input">
+    <input type="radio" id="customRadioInline2" name="opcion_fecha_filtro" value="mes" class="custom-control-input">
     <label class="custom-control-label" for="customRadioInline2">Mes</label>
   </div>
-    <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" id="customRadioInline3" name="opcion_anio" class="custom-control-input">
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline3" name="opcion_fecha_filtro" value="anio" class="custom-control-input">
     <label class="custom-control-label" for="customRadioInline3">Año</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline4" name="opcion_fecha_filtro" value="todos" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline4">Todos</label>
   </div>
   <input type="hidden" value="form_filtrar_turno" name="id_post">
   <input type="submit" value="Buscar" class="btn btn-info btn-sm">
   </form>
 </div>
-
+<br>
 <div class="container">
 <div id="div1" class ="col-md-12">
         <table border="1" class="table table-striped table-bordered bg-white table-sm">
@@ -119,8 +123,18 @@
 
 <script>
 	
-$('.datepicker').datepicker()
-
+  window.onload = function(){
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var anio = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+      dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+    document.getElementById('input_fecha').value=anio+"-"+mes+"-"+dia;
+  }
+  
   function select_medico(){
       var id_medico = document.getElementById("tabla_medico");
       document.getElementById("input_id_medico").value=id_medico.value;

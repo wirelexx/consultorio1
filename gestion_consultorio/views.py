@@ -76,10 +76,11 @@ def acceso_turnos(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_turnos, login_url='errorpermisos')
 def turnos(request):
+    hoy=datetime.date.today()
+    fecha_filtro = {'fecha_turno': hoy}
     if request.method == "POST":
         if request.POST['id_post'] == "form_editar_turno":
             t = turno()
-            print(request.POST)
             t = turno.objects.get(pk=int(request.POST['id_turno']))
             t.id_medico=medico.objects.get(pk=int(request.POST['id_medico']))
             t.hora_turno=request.POST['hora_turno']
@@ -87,21 +88,26 @@ def turnos(request):
             t.save()
             return HttpResponseRedirect(reverse('turnos'))
         elif request.POST['id_post'] == "form_filtrar_turno":
-            if request.POST['opcion_dia']=="on":
-                fecha_filtro = request.POST['fecha']
-            #elif request.POST['opcion_mes']=="on":
+            fecha_dividida=request.POST['fecha'].split("-")
+            if request.POST['opcion_fecha_filtro']=="dia":
+                fecha_filtro = {'fecha_turno': request.POST['fecha']}
+            elif request.POST['opcion_fecha_filtro']=="mes":
+                fecha_filtro = {'fecha_turno__month': fecha_dividida[1], 'fecha_turno__year': fecha_dividida[0]}
+            elif request.POST['opcion_fecha_filtro']=="anio":
+                fecha_filtro = {'fecha_turno__year': fecha_dividida[0]}
+            elif request.POST['opcion_fecha_filtro']=="todos":
+                fecha_filtro = {}
 
-            #elif request.POST['opcion_anio']=="on":
 
     usuario = None
     if request.user.is_authenticated:
         usuario_nombre = request.user.first_name
         usuario_apellido = request.user.last_name
         try:
-            fecha_filtro="2020-11-2"
-            #consulta = turno.objects.filter(id_medico=medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)).filter(consulta_fecha).order_by('fecha_turno','hora_turno')
+            medico_filtro=medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)
+            consulta = turno.objects.filter(id_medico=medico_filtro).filter(**fecha_filtro).order_by('fecha_turno','hora_turno')
         except: 
-            consulta = turno.objects.all()
+            consulta = turno.objects.filter(**fecha_filtro).order_by('fecha_turno','hora_turno')
     return render(request,"turnos.html", {"medicos":medico.objects.all(),"turnos": consulta})
 
 def acceso_eliminar_pacientes(user):
