@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
 from .models import paciente, medico, turno, historia_medica
 from django import forms
+#from django.forms import extras
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+import datetime
 
 # Create your views here.
 #def index(request):
@@ -84,12 +86,20 @@ def turnos(request):
             t.fecha_turno=request.POST['fecha_turno']
             t.save()
             return HttpResponseRedirect(reverse('turnos'))
+        elif request.POST['id_post'] == "form_filtrar_turno":
+            if request.POST['opcion_dia']=="on":
+                fecha_filtro = request.POST['fecha']
+            #elif request.POST['opcion_mes']=="on":
+
+            #elif request.POST['opcion_anio']=="on":
+
     usuario = None
     if request.user.is_authenticated:
         usuario_nombre = request.user.first_name
         usuario_apellido = request.user.last_name
         try:
-            consulta = turno.objects.filter(id_medico=medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)).order_by('fecha_turno','hora_turno')
+            fecha_filtro="2020-11-2"
+            #consulta = turno.objects.filter(id_medico=medico.objects.get(nombre=usuario_nombre,apellido=usuario_apellido)).filter(consulta_fecha).order_by('fecha_turno','hora_turno')
         except: 
             consulta = turno.objects.all()
     return render(request,"turnos.html", {"medicos":medico.objects.all(),"turnos": consulta})

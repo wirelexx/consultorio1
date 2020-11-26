@@ -2,10 +2,29 @@
 {% block body %}
 <div class="container">
   <h1 style="color:white">Turnos</h1>
-  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#nuevo_turno">Nuevo turno</button>
-  <p style="color:white">Utiliza la barra inferior para buscar turnos</p>
-  
+  <p style="color:white">Seleccione fecha en el control inferior para buscar turnos por dia/mes/año</p>
 </div>
+<div class="container">
+  <form action="{% url 'turnos' %}" method="post">
+  {% csrf_token %}
+  <input type="date" name="fecha">
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" name="opcion_dia" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline1">Dia</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline2" name="opcion_mes" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline2">Mes</label>
+  </div>
+    <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline3" name="opcion_anio" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline3">Año</label>
+  </div>
+  <input type="hidden" value="form_filtrar_turno" name="id_post">
+  <input type="submit" value="Buscar" class="btn btn-info btn-sm">
+  </form>
+</div>
+
 <div class="container">
 <div id="div1" class ="col-md-12">
         <table border="1" class="table table-striped table-bordered bg-white table-sm">
@@ -46,7 +65,7 @@
         </table>
     </div>
 </div>
-<!-- ventana modal nuevo turno -->
+<!-- ventana modal nuevo turno BORRAR -->
   <div class="modal fade" id="nuevo_turno" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -99,6 +118,9 @@
   </div>
 
 <script>
+	
+$('.datepicker').datepicker()
+
   function select_medico(){
       var id_medico = document.getElementById("tabla_medico");
       document.getElementById("input_id_medico").value=id_medico.value;

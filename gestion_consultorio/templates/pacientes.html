@@ -3,7 +3,11 @@
 
 <div class="container">
   <h1 style="color:white">Pacientes</h1>
-  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#nuevo_paciente">Nuevo Paciente</button>
+  {% if perms.gestion_consultorio.change_paciente %}
+    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#nuevo_paciente">Nuevo Paciente</button>
+  {% else %}
+    <button type="button" class="btn btn-info btn-sm" disabled>Nuevo Paciente</button>
+  {% endif %}
   <p style="color:white">Utiliza la barra inferior para buscar pacientes por Id,Nombre,Apellido</p>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
