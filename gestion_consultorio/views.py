@@ -62,7 +62,7 @@ def pacientes(request):
 
 def acceso_pedidos(user):
     #define que grupos pueden acceder a la vista de turnos
-    return user.groups.filter(name__in=['Secretarias']).exists()
+    return user.groups.filter(name__in=['Vendedores']).exists()
 
 @login_required(login_url='login_view')
 @user_passes_test(acceso_pedidos, login_url='errorpermisos')

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container">
+  <h1 style="color:white">Ventas</h1>
+    <p style="color:white">Utiliza la barra inferior para buscar clientes por Nombre/Apellido</p>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+    </div>
+    <input type="text" class="form-control" id="buscar_tabla" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+</div>
+<div class="container">
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_pacientes">
+        {% for unPaciente in pacientes %}
+          <tr>
+            <td style="display:none;">{{unPaciente.id}}</td>
+            <td>{{unPaciente.nombre}}</td>
+            <td>{{unPaciente.apellido}}</td>
+            <td>
+                <a href="{% url %}" class="btn btn-danger btn-sm btn-success" id="btn-Nueva_venta">Seleccionar</a>                
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
