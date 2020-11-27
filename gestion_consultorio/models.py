@@ -59,4 +59,10 @@ class detalle_venta(models.Model):
     id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)
     id_producto = models.ForeignKey(producto, on_delete=models.CASCADE)
 
+class venta_temporal(models.Model):
+    id_producto = models.ForeignKey(producto, on_delete=models.CASCADE)
+
+
+
+
 

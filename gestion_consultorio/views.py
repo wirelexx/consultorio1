@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
-from .models import paciente, medico, turno, historia_medica
+from .models import paciente, medico, turno, historia_medica, producto, venta_temporal
 from django import forms
 #from django.forms import extras
 from django.urls import reverse
@@ -77,6 +77,16 @@ def acceso_ventas(user):
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
     return render(request,"ventas.html",{"pacientes": paciente.objects.all()})
+
+def agregar_articulo(request,paciente_id):
+    return render(request,"agregar_articulo.html",{"productos": producto.objects.all(), "paciente":paciente_id})
+
+def venta_temp(request,producto_id,paciente_id):
+    venta=venta_temporal()
+    venta.id_producto=producto.objects.get(pk=int(producto_id))
+    venta.save() 
+    return HttpResponseRedirect(reverse('pedidos', args=[paciente_id]))
+
 
 def acceso_turnos(user):
     #define que grupos pueden acceder a la vista de turnos

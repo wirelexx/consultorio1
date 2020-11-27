@@ -16,4 +16,6 @@ urlpatterns = [
     path("graba_hclinica", views.graba_hclinica, name="graba_hclinica"),
     path("<int:turno_id>/ausente_paciente", views.ausente_paciente, name="ausente_paciente"),
     path("<int:turno_id>/eliminar_turno", views.eliminar_turno, name="eliminar_turno"),
+    path("<int:paciente_id>/agregar_articulo", views.agregar_articulo, name="agregar_articulo"),
+    path("<int:producto_id>/<int:paciente_id>/venta_temp", views.venta_temp, name="venta_temp"),
 ]
