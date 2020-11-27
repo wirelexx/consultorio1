@@ -29,7 +29,7 @@
             <td>{{unPaciente.nombre}}</td>
             <td>{{unPaciente.apellido}}</td>
             <td>
-                <a href="{% url 'pedidos' {{unPaciente.id}} %}" class="btn btn-success btn-sm" id="btn-Nueva_venta">Seleccionar</a>                
+                <a href="{% url 'pedidos' unPaciente.id %}" class="btn btn-success btn-sm" id="btn-Nueva_venta">Seleccionar</a>                
             </td>
           </tr>
         {% endfor %}
