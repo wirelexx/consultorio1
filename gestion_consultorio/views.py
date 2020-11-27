@@ -66,8 +66,9 @@ def acceso_pedidos(user):
 
 @login_required(login_url='login_view')
 @user_passes_test(acceso_pedidos, login_url='errorpermisos')
-def pedidos(request):
-    return render(request,"pedidos.html")
+def pedidos(request,paciente_id):
+
+    return render(request,"pedidos.html",{"paciente": paciente.objects.all})
 
 def acceso_ventas(user):
     #define que grupos pueden acceder a la vista de turnos
@@ -76,7 +77,7 @@ def acceso_ventas(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
-    return render(request,"ventas.html")
+    return render(request,"ventas.html",{"pacientes": paciente.objects.all})
 
 def acceso_turnos(user):
     #define que grupos pueden acceder a la vista de turnos

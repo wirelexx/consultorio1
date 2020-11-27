@@ -29,7 +29,7 @@
             <td>{{unPaciente.nombre}}</td>
             <td>{{unPaciente.apellido}}</td>
             <td>
-                <a href="{% url %}" class="btn btn-danger btn-sm btn-success" id="btn-Nueva_venta">Seleccionar</a>                
+                <a href="{% url 'pedidos' {{unPaciente.id}} %}" class="btn btn-success btn-sm" id="btn-Nueva_venta">Seleccionar</a>                
             </td>
           </tr>
         {% endfor %}
@@ -37,4 +37,14 @@
     </table>
   </div>
 </div>
+<script>
+      $(document).ready(function(){
+      $("#buscar_tabla").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#tabla_pacientes tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
 {% endblock %}
