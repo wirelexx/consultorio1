@@ -69,6 +69,15 @@ def acceso_pedidos(user):
 def pedidos(request):
     return render(request,"pedidos.html")
 
+def acceso_ventas(user):
+    #define que grupos pueden acceder a la vista de turnos
+    return user.groups.filter(name__in=['Vendedores']).exists()
+
+@login_required(login_url='login_view')
+@user_passes_test(acceso_ventas, login_url='errorpermisos')
+def ventas(request):
+    return render(request,"ventas.html")
+
 def acceso_turnos(user):
     #define que grupos pueden acceder a la vista de turnos
     return user.groups.filter(name__in=['Medicos','Secretarias']).exists()

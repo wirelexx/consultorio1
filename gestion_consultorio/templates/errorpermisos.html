@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1 style="color:white;">Gestion de Consultorio</h1>
-    <h2 style="color:white;">Oftalmologico</h2>
+    <h1 style="color:white;">Error de acceso</h1>
 
-    <h2>Estimado {{ request.user.first_name }}, usted no cuenta con los permisos necesarios</h2>
+    <h4>Estimado {{ request.user.first_name }}, usted no cuenta con los permisos necesarios para acceder a esta vista.</h4>
 
     <a href="{% url 'logout_view' %}">Desconectarse</a>
 
