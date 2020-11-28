@@ -13,6 +13,7 @@
           <th scope="col">Cliente</th>
           <th scope="col">Vendedor</th>
           <th scope="col">Estado</th>
+          <th scope="col">Operaciones</th>
         </tr>
       </thead>
       <tbody id="tabla_ventas">
@@ -21,7 +22,9 @@
             <td style="display:none;">{{unaVenta.id}}</td>
             <td>{{unaVenta.fecha_venta}}</td>
             <td>{{unaVenta.id_paciente}}</td>
-            <td>{{unaVenta.id_User}}
+            <td>{{unaVenta.id_User}}</td>
+            <td>{{unaVenta.estado}}</td>
+            <td>
             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" value="detalle">Detalle</button>
             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" value="resuelto">Resuelto</button>
             </td>

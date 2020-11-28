@@ -218,7 +218,7 @@ def eliminar_turno(request, turno_id):
 
 def acceso_taller(user):
     #define que grupos pueden acceder a la vista de taller
-    return user.groups.filter(name__in=['Vendedores']).exists()
+    return user.groups.filter(name__in=['Tecnicos']).exists()
 
 @user_passes_test(acceso_taller, login_url='errorpermisos')
 @login_required(login_url='login_view')
@@ -228,7 +228,7 @@ def taller(request):
 
 def acceso_gerencia(user):
     #define que grupos pueden acceder a la vista de taller
-    return user.groups.filter(name__in=['Vendedores']).exists()
+    return user.groups.filter(name__in=['Gerentes']).exists()
 
 @user_passes_test(acceso_gerencia, login_url='errorpermisos')
 @login_required(login_url='login_view')
