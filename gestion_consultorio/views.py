@@ -230,4 +230,3 @@ def acceso_gerencia(user):
 def gerencia(request):
     return render(request,"gerencia.html")
 
-

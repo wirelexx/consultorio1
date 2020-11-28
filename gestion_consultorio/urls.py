@@ -18,10 +18,7 @@ urlpatterns = [
     path("<int:turno_id>/eliminar_turno", views.eliminar_turno, name="eliminar_turno"),
     path("<int:paciente_id>/agregar_articulo", views.agregar_articulo, name="agregar_articulo"),
     path("<int:producto_id>/<int:paciente_id>/venta_temp", views.venta_temp, name="venta_temp"),
-<<<<<<< HEAD
     path("<int:producto_id>/<int:paciente_id>/eliminar_articulo", views.eliminar_articulo, name="eliminar_articulo"),
-=======
     path("taller", views.taller, name="taller"),
     path("gerencia", views.taller, name="gerencia"),
->>>>>>> bbd0d3c052a921211948ae97e002d6837c2e8af7
 ]
