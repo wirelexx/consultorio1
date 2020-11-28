@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 import datetime
+from django.db.models import Sum
 
 # Create your views here.
 #def index(request):
@@ -67,7 +68,18 @@ def acceso_pedidos(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_pedidos, login_url='errorpermisos')
 def pedidos(request,paciente_id):
-    return render(request,"pedidos.html",{"paciente": paciente.objects.get(pk=paciente_id)})
+    subtotal=0
+    vt=venta_temporal.objects.all()
+    for unArticulo in vt:
+        p=producto.objects.get(pk=int(unArticulo.id_producto.id)).precio
+        subtotal+=p
+        print(subtotal)
+    #a= venta_temporal.objects.filter(pkid_producto=id)
+    #print(a)
+
+    #subtotal=producto.objects.all().aggregate(Sum('id_producto'))
+    #print(subtotal)
+    return render(request,"pedidos.html",{"paciente": paciente.objects.get(pk=paciente_id), "pedido_actual": venta_temporal.objects.all(), "subtotal": subtotal})
 
 def acceso_ventas(user):
     #define que grupos pueden acceder a la vista de turnos
@@ -76,6 +88,7 @@ def acceso_ventas(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
+    venta_temporal.objects.all().delete()
     return render(request,"ventas.html",{"pacientes": paciente.objects.all()})
 
 def agregar_articulo(request,paciente_id):

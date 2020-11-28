@@ -173,12 +173,12 @@
       });
     });
 
-  function editar_paciente(boton){
-  var str = boton.value;
-  var res = str.split(",");
-  document.getElementById("input_id_paciente_editar").value=res[0];
-  document.getElementById("input_nombre_paciente").value=res[1];
-  document.getElementById("input_apellido_paciente").value=res[2];
-}
+    function editar_paciente(boton){
+    var str = boton.value;
+    var res = str.split(",");
+    document.getElementById("input_id_paciente_editar").value=res[0];
+    document.getElementById("input_nombre_paciente").value=res[1];
+    document.getElementById("input_apellido_paciente").value=res[2];
+  }
   </script>
 {% endblock %}

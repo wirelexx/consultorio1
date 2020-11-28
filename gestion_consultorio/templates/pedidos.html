@@ -1,17 +1,38 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="container">
-    <h1 style="color:white;">Pedidos</h1>
     <h2 style="color:white;">Nuevo pedido Cliente: {{paciente.apellido}}, {{paciente.nombre}}
 
 </div>
 
 <div class="container">
-     <p> Agregue articulos al carrito con el boton "Agregar" </p>
-     <a href="{% url 'agregar_articulo' paciente.id %}" class="btn btn-info btn-sm">Agregar articulo</a>
+    <div style="width:600px;float:right;" class="alert alert-primary" role="alert">
+        <label style="float:right"><a href="" class="btn btn-success btn-sm">Finalizar pedido</a></label>
+        <label style="float:right"> Enviar a taller: <input style="text-align:right;"type="checkbox" aria-label="Checkbox for following text input"></label>   
+        <label style="float:right;color:green;font-size:28px;">${{subtotal}}</label>
+        <label style="float:right;font-size:28px">Subtotal:</label><br><br>
+    </div>
+        <label style="color:white;">Seleccione medio de pago:</label>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline1" name="opcion_fecha_filtro" value="efectivo" class="custom-control-input" checked>
+        <label class="custom-control-label" for="customRadioInline1">Efectivo</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline2" name="opcion_fecha_filtro" value="tcredito" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline2">Tarj. Credito</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline3" name="opcion_fecha_filtro" value="tdebito" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline3">Tarj. Debito</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline4" name="opcion_fecha_filtro" value="virtual" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline4">Billetera Virtual</label>
+    </div>
 </div>
-<br>
+
 <div class="container">
+<a href="{% url 'agregar_articulo' paciente.id %}" class="btn btn-info btn-sm">Agregar articulo</a><br><br>
  <div id="div1" class ="col-md-12">  
     <table border="1" class="table table-hover table-bordered bg-white table-sm">
       <thead class="thead-dark">             
@@ -23,13 +44,11 @@
         </tr>
       </thead>
       <tbody id="tabla_pedido">
-        {% for unProducto in productos %}
+        {% for unProducto in pedido_actual %}
           <tr>
-            <td style="display:none;">{{unPaciente.id}}</td>
-            <td>{{unProducto.nombre_producto}}</td>
-            <td>{{unProducto.ojo_vision}}
-            <td>{{unProducto.distacia_vision}}
-            <td>${{unProducto.precio}}</td>
+            <td style="display:none;">{{unProducto.id}}</td>
+            <td>{{unProducto.id_producto.nombre_producto}}</td>
+            <td>{{unProducto.id_producto.precio}}</td>
             <td>
                 <a href="" class="btn btn-danger btn-sm" id="btn-Nueva_venta">Eliminar</a>                
             </td>

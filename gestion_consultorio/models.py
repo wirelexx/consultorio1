@@ -43,8 +43,9 @@ class producto(models.Model):
     armazon = models.CharField(max_length=2,default="NO")
 
     
-    def __str__(self):
-        return f"{self.nombre_producto} {self.precio} {self.distacia_vision} {self.ojo_vision} {self.armazon} {self.estado}"
+    #def __dict__(self):
+        #return f"{self.nombre_producto} {self.precio} {self.distacia_vision} {self.ojo_vision} {self.armazon}"
+        #return {'nombre' : self.nombre_producto, 'precio' : str(self.precio)}
 
 
 class venta(models.Model):
