@@ -68,17 +68,7 @@ def acceso_pedidos(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_pedidos, login_url='errorpermisos')
 def pedidos(request,paciente_id):
-    subtotal=0
-    vt=venta_temporal.objects.all()
-    for unArticulo in vt:
-        p=producto.objects.get(pk=int(unArticulo.id_producto.id)).precio
-        subtotal+=p
-        print(subtotal)
-    #a= venta_temporal.objects.filter(pkid_producto=id)
-    #print(a)
-
-    #subtotal=producto.objects.all().aggregate(Sum('id_producto'))
-    #print(subtotal)
+    subtotal=venta_temporal.objects.aggregate(Sum('id_producto__precio'))
     return render(request,"pedidos.html",{"paciente": paciente.objects.get(pk=paciente_id), "pedido_actual": venta_temporal.objects.all(), "subtotal": subtotal})
 
 def acceso_ventas(user):
@@ -89,10 +79,15 @@ def acceso_ventas(user):
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
     venta_temporal.objects.all().delete()
-    return render(request,"ventas.html",{"pacientes": paciente.objects.all()})
+    return render(request,"ventas.html",{"pacientes": paciente.objects.all().order_by('apellido','nombre')})
 
 def agregar_articulo(request,paciente_id):
     return render(request,"agregar_articulo.html",{"productos": producto.objects.all(), "paciente":paciente_id})
+
+def eliminar_articulo(request,producto_id,paciente_id):
+    venta_temporal.objects.get(pk=producto_id).delete()
+    return HttpResponseRedirect(reverse('pedidos', args=[paciente_id]))
+
 
 def venta_temp(request,producto_id,paciente_id):
     venta=venta_temporal()

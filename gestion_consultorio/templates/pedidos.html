@@ -1,16 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="container">
-    <h2 style="color:white;">Nuevo pedido Cliente: {{paciente.apellido}}, {{paciente.nombre}}
+    <h2 style="color:white;">Nuevo pedido <i class="fa fa-user-circle" aria-hidden="true"></i> {{paciente.apellido}}, {{paciente.nombre}}
 
 </div>
 
 <div class="container">
-    <div style="width:600px;float:right;" class="alert alert-primary" role="alert">
-        <label style="float:right"><a href="" class="btn btn-success btn-sm">Finalizar pedido</a></label>
-        <label style="float:right"> Enviar a taller: <input style="text-align:right;"type="checkbox" aria-label="Checkbox for following text input"></label>   
-        <label style="float:right;color:green;font-size:28px;">${{subtotal}}</label>
-        <label style="float:right;font-size:28px">Subtotal:</label><br><br>
+    <div class="alert alert-info" role="alert">
+        <label style="float:right"> Enviar a taller: <input style="text-align:right;"type="checkbox" aria-label="Checkbox for following text input"></label>
+        <label style="float:right"><a href="" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Finalizar pedido</a></label>
+        <label style="font-size:34px">Subtotal:</label>
+        <label style="color:green;font-size:34px;">$ {{subtotal.id_producto__precio__sum|floatformat:2}}</label>
+        
     </div>
         <label style="color:white;">Seleccione medio de pago:</label>
     <div class="custom-control custom-radio custom-control-inline">
@@ -32,7 +33,7 @@
 </div>
 
 <div class="container">
-<a href="{% url 'agregar_articulo' paciente.id %}" class="btn btn-info btn-sm">Agregar articulo</a><br><br>
+<a href="{% url 'agregar_articulo' paciente.id %}" class="btn btn-info btn-sm"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar articulo</a><br><br>
  <div id="div1" class ="col-md-12">  
     <table border="1" class="table table-hover table-bordered bg-white table-sm">
       <thead class="thead-dark">             
@@ -48,9 +49,9 @@
           <tr>
             <td style="display:none;">{{unProducto.id}}</td>
             <td>{{unProducto.id_producto.nombre_producto}}</td>
-            <td>{{unProducto.id_producto.precio}}</td>
+            <td style="text-align:right">$ {{unProducto.id_producto.precio}}</td>
             <td>
-                <a href="" class="btn btn-danger btn-sm" id="btn-Nueva_venta">Eliminar</a>                
+                <a href="{% url 'eliminar_articulo' unProducto.id paciente.id %}" class="btn btn-danger btn-sm btn-delete" id="btn-delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a>             
             </td>
           </tr>
         {% endfor %}

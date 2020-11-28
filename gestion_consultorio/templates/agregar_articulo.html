@@ -27,13 +27,13 @@
         <tbody id="tabla_productos">
             {% for unProducto in productos %}
                 <tr>
-                    <td>{{unProducto.id}}</td>
+                    <td style="display:none">{{unProducto.id}}</td>
                     <td>{{unProducto.nombre_producto}}</td>
                     <td>{{unProducto.ojo_vision}}
                     <td>{{unProducto.distacia_vision}}
-                    <td>${{unProducto.precio}}</td>
+                    <td style="text-align:right">$ {{unProducto.precio}}</td>
                     <td>
-                        <a href="{% url 'venta_temp' unProducto.id paciente %}" class="btn btn-success btn-sm" id="btn-Nueva_venta">Agregar</a>                
+                        <a href="{% url 'venta_temp' unProducto.id paciente %}" class="btn btn-success btn-sm" id="btn-Nueva_venta"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar</a>                
                     </td>
                 </tr>
             {% endfor %}
