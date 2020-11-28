@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
 from .models import paciente, medico, turno, historia_medica, producto, venta_temporal, venta, detalle_venta
 from django import forms
-#from django.forms import extras
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -10,10 +9,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 import datetime
 from django.db.models import Sum
-
-# Create your views here.
-#def index(request):
-#    return render(request,"index.html")
 
 
 @login_required(login_url='login_view')
@@ -81,7 +76,6 @@ def acceso_ventas(user):
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
     if request.method == "POST":
-        print(request.POST)
         v = venta()
         v.id_paciente = paciente.objects.get(pk=int(request.POST['id_paciente']))
         v.fecha_venta = datetime.date.today()
@@ -105,7 +99,6 @@ def ventas(request):
         venta_id=v.pk
 
         vtemp = venta_temporal.objects.all()
-        #print(vtemp.id_producto__pk)
         for vt in vtemp:
             idpro=int(vt.id_producto.id)
             id_producto=producto.objects.get(pk=idpro)
@@ -204,7 +197,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print(request.user.first_name)
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "login.html", {

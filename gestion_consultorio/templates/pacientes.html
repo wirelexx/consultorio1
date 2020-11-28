@@ -54,83 +54,81 @@
     </table>
   </div>
 </div>
-    <!-- ventana modal nuevo paciente -->
-  <div class="modal fade" id="nuevo_paciente" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Nuevo paciente</h4>
-          
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-        <form action="{% url 'pacientes' %}" method="post"> 
-            {% csrf_token %}
-            {{ form }}
-        </div>
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="Guardar">
-        </div>
-        </form>
+<!-- ventana modal nuevo paciente -->
+<div class="modal fade" id="nuevo_paciente" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Nuevo paciente</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+      <div class="modal-body">
+        <form action="{% url 'pacientes' %}" method="post"> 
+          {% csrf_token %}
+          {{ form }}
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Guardar">
+      </div>
+      </form>
     </div>
   </div>
+</div>
 
-    <!-- ventana modal editar paciente -->
-  <div class="modal fade" id="editar_paciente" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Editar paciente</h4>
-          
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-        <form action="{% url 'pacientes' %}" method="post"> 
-            {% csrf_token %}
-              <input type="hidden" value="form_editar_paciente" name="id_post">
-              <input type="hidden" id="input_id_paciente_editar" name="id_paciente">
-              <p>Nombre   <input type="text" id="input_nombre_paciente" name="nombre_paciente" maxlength="20" required></p>
-              <p>Apellido <input type="text" id="input_apellido_paciente" name="apellido_paciente" maxlength="20" required></p>
-        </div>
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="Guardar">
-        </div>
-        </form>
+<!-- ventana modal editar paciente -->
+<div class="modal fade" id="editar_paciente" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Editar paciente</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+      <div class="modal-body">
+        <form action="{% url 'pacientes' %}" method="post"> 
+          {% csrf_token %}
+            <input type="hidden" value="form_editar_paciente" name="id_post">
+            <input type="hidden" id="input_id_paciente_editar" name="id_paciente">
+            <p>Nombre   <input type="text" id="input_nombre_paciente" name="nombre_paciente" maxlength="20" required></p>
+            <p>Apellido <input type="text" id="input_apellido_paciente" name="apellido_paciente" maxlength="20" required></p>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Guardar">
+      </div>
+      </form>
     </div>
   </div>
+</div>
 
-      <!-- ventana modal nuevo turno -->
-  <div class="modal fade" id="nuevo_turno" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Nuevo turno</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p id="nombre_paciente"></p>
+<!-- ventana modal nuevo turno -->
+<div class="modal fade" id="nuevo_turno" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Nuevo turno</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="nombre_paciente"></p>
         <form action="{% url 'pacientes' %}" method="post">
-            {% csrf_token %} 
-            <input type="hidden" id="input_id_paciente_nuevo_turno" name="id_paciente">
-            <input type="hidden" id="input_id_medico" name="id_medico">
-            <input type="hidden" value="form_nuevo_turno" name="id_post">
-            <p> Seleccione Fecha: <input type="date"  id="input_date" name="fecha_turno" required></p>
-            <p> Seleccione Hora: <input type="time" id="input_time" name="hora_turno" required>
-            <p> Seleccione Medico: <select name"medicos" onclick="select_medico()" id="tabla_medico"></p>
-                {% for unMedico in medicos %}
-                  <option class="option" value={{unMedico.id}}>{{unMedico.nombre }} {{unMedico.apellido}}</option> 
-                {% endfor %}
-            </select>
-        </div>
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="Guardar">
-        </div>
-        </form>
+          {% csrf_token %} 
+          <input type="hidden" id="input_id_paciente_nuevo_turno" name="id_paciente">
+          <input type="hidden" id="input_id_medico" name="id_medico">
+          <input type="hidden" value="form_nuevo_turno" name="id_post">
+          <p> Seleccione Fecha: <input type="date"  id="input_date" name="fecha_turno" required></p>
+          <p> Seleccione Hora: <input type="time" id="input_time" name="hora_turno" required>
+          <p> Seleccione Medico: <select name"medicos" onclick="select_medico()" id="tabla_medico"></p>
+          {% for unMedico in medicos %}
+            <option class="option" value={{unMedico.id}}>{{unMedico.nombre }} {{unMedico.apellido}}</option> 
+          {% endfor %}
+          </select>
       </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Guardar">
+          </div>
+        </form>
     </div>
   </div>
+</div>
 
   <script>
   window.onload=function() {

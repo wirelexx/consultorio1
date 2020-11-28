@@ -3,7 +3,7 @@
 
 <div class="container">
   <h1 style="color:white">Productos</h1>
-    <p style="color:white">Utiliza la barra inferior para buscar productos. Luego agregalos al pedido actual</p>
+  <p style="color:white">Utiliza la barra inferior para buscar productos. Luego agregalos al pedido actual</p>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
@@ -12,34 +12,34 @@
   </div>
 </div>
 <div class="container">
-    <div id="div1" class ="col-md-12">
-        <table border="1" class="table table-hover table-bordered bg-white table-sm">
-        <thead class="thead-dark">             
-            <tr>
-                <th style="display:none;" scope="col">Id</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Ojo</th>
-                <th scope="col">Distancia</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="tabla_productos">
-            {% for unProducto in productos %}
-                <tr>
-                    <td style="display:none">{{unProducto.id}}</td>
-                    <td>{{unProducto.nombre_producto}}</td>
-                    <td>{{unProducto.ojo_vision}}
-                    <td>{{unProducto.distacia_vision}}
-                    <td style="text-align:right">$ {{unProducto.precio}}</td>
-                    <td>
-                        <a href="{% url 'venta_temp' unProducto.id paciente %}" class="btn btn-success btn-sm" id="btn-Nueva_venta"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar</a>                
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-    </div>
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Ojo</th>
+          <th scope="col">Distancia</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_productos">
+        {% for unProducto in productos %}
+          <tr>
+            <td style="display:none">{{unProducto.id}}</td>
+            <td>{{unProducto.nombre_producto}}</td>
+            <td>{{unProducto.ojo_vision}}
+            <td>{{unProducto.distacia_vision}}
+            <td style="text-align:right">$ {{unProducto.precio}}</td>
+            <td>
+              <a href="{% url 'venta_temp' unProducto.id paciente %}" class="btn btn-success btn-sm" id="btn-Nueva_venta"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar</a>                
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
