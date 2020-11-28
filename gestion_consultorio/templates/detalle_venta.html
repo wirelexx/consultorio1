@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{%block body%}
+
+<div class="container">
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th style="display:none;" scope="col">Id</th>
+          <th scope="col">Articulos vendidos</th>
+        </tr>
+      </thead>
+      <tbody id="tabla_ventas">
+        {% for unDetalle in detalle %}
+          <tr>
+            <td>{{unDetalle.id_producto.nombre_producto}}</td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{%endblock%}

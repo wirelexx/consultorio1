@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
-from .models import paciente, medico, turno, historia_medica, producto, venta_temporal, venta
+from .models import paciente, medico, turno, historia_medica, producto, venta_temporal, venta, detalle_venta
 from django import forms
 #from django.forms import extras
 from django.urls import reverse
@@ -18,7 +18,8 @@ from django.db.models import Sum
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login_view"))
-    else: return render(request,"index.html")
+    else: 
+        return render(request,"index.html")
    
 
 def errorpermisos(request):
@@ -217,8 +218,14 @@ def acceso_taller(user):
 
 @user_passes_test(acceso_taller, login_url='errorpermisos')
 @login_required(login_url='login_view')
+def detalleventa(request, venta_id):
+    return render(request,"detalle_venta.html",{"detalle":detalle_venta.objects.filter(id_venta=venta_id)})
+
+
+@user_passes_test(acceso_taller, login_url='errorpermisos')
+@login_required(login_url='login_view')
 def taller(request):
-    return render(request,"taller.html",{"ventas":venta.objects.all().order_by('fecha_venta')})
+    return render(request,"taller.html",{"ventas":venta.objects.filter(estado="TALLER").order_by('fecha_venta')})#, "detalle_ventas":detalle_venta.objets.all()})
 
 
 def acceso_gerencia(user):

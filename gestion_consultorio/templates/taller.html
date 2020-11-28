@@ -25,7 +25,7 @@
             <td>{{unaVenta.id_User}}</td>
             <td>{{unaVenta.estado}}</td>
             <td>
-            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" value="detalle">Detalle</button>
+            <a href="{% url 'detalleventa' unaVenta.id %}" class="btn btn-info btn-sm">Ver detalle</a>
             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" value="resuelto">Resuelto</button>
             </td>
           </tr>
