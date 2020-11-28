@@ -2,34 +2,37 @@
 {% block body %}
 <div class="container">
     <h2 style="color:white;">Nuevo pedido <i class="fa fa-user-circle" aria-hidden="true"></i> {{paciente.apellido}}, {{paciente.nombre}}
-
 </div>
 
 <div class="container">
-    <div class="alert alert-info" role="alert">
-        <label style="float:right"> Enviar a taller: <input style="text-align:right;"type="checkbox" aria-label="Checkbox for following text input"></label>
-        <label style="float:right"><a href="" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Finalizar pedido</a></label>
+    <form action="{% url 'ventas' %}" method="post">
+    {% csrf_token %}
+      <div class="alert alert-info" role="alert">
+        <input type="hidden" name="id_paciente" value={{paciente.id}}>
+        <input type="hidden" id="input_total_venta" name="total_venta" value={{subtotal.id_producto__precio__sum}}>
+        <label style="float:right"> Enviar a taller: <input style="text-align:right;" name="taller" type="checkbox" aria-label="Checkbox for following text input"></label>
+        <label style="float:right"><input type="submit" id="finaliza_pedido" class="btn btn-success btn-sm" img="class=fa fa-shopping-cart" value="Finalizar pedido"></label>
         <label style="font-size:34px">Subtotal:</label>
         <label style="color:green;font-size:34px;">$ {{subtotal.id_producto__precio__sum|floatformat:2}}</label>
-        
-    </div>
+      </div>
         <label style="color:white;">Seleccione medio de pago:</label>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="customRadioInline1" name="opcion_fecha_filtro" value="efectivo" class="custom-control-input" checked>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline1" name="opcion_pago" value="efectivo" class="custom-control-input" checked>
         <label class="custom-control-label" for="customRadioInline1">Efectivo</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="customRadioInline2" name="opcion_fecha_filtro" value="tcredito" class="custom-control-input">
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline2" name="opcion_pago" value="tcredito" class="custom-control-input">
         <label class="custom-control-label" for="customRadioInline2">Tarj. Credito</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="customRadioInline3" name="opcion_fecha_filtro" value="tdebito" class="custom-control-input">
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline3" name="opcion_pago" value="tdebito" class="custom-control-input">
         <label class="custom-control-label" for="customRadioInline3">Tarj. Debito</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="customRadioInline4" name="opcion_fecha_filtro" value="virtual" class="custom-control-input">
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline4" name="opcion_pago" value="virtual" class="custom-control-input">
         <label class="custom-control-label" for="customRadioInline4">Billetera Virtual</label>
-    </div>
+      </div>
+   </form>
 </div>
 
 <div class="container">
@@ -59,4 +62,14 @@
     </table>
 <div>
 </div>
+
+<script>
+window.onload=function(){
+  if(document.getElementById("input_total_venta").value!="None"){
+    document.getElementById("finaliza_pedido").disabled = false;
+  }else{
+    document.getElementById("finaliza_pedido").disabled = true;
+  }
+}
+</script>
 {% endblock %}
