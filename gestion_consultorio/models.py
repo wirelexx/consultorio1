@@ -57,7 +57,7 @@ class venta(models.Model):
     estado = models.CharField(max_length=32, choices=[('PENDIENTE','pendiente'),('PEDIDO','pedido'),('FINALIZADO','finalizado')],default="PENDIENTE")
 
 class detalle_venta(models.Model):
-    id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)
+    id_venta = models.ManyToManyField(venta)
     id_producto = models.ForeignKey(producto, on_delete=models.CASCADE)
 
 class venta_temporal(models.Model):

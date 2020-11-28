@@ -2,16 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
 from .models import paciente, medico, turno, historia_medica, producto, venta_temporal, venta, detalle_venta
 from django import forms
-#from django.forms import extras
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import login_required, user_passes_test
 import datetime
 from django.db.models import Sum
-
-# Create your views here.
-#def index(request):
-#    return render(request,"index.html")
 
 
 @login_required(login_url='login_view')
@@ -79,7 +76,38 @@ def acceso_ventas(user):
 @login_required(login_url='login_view')
 @user_passes_test(acceso_ventas, login_url='errorpermisos')
 def ventas(request):
-    venta_temporal.objects.all().delete()
+    if request.method == "POST":
+        v = venta()
+        v.id_paciente = paciente.objects.get(pk=int(request.POST['id_paciente']))
+        v.fecha_venta = datetime.date.today()
+        v.total_vent = request.POST['total_venta']
+        v.id_User = request.user
+        if request.POST['opcion_pago']=="efectivo":
+            v.forma_de_pago="EFECTIVO"
+        elif request.POST['opcion_pago']=="tcredito":
+            v.forma_de_pago="TARJETA DE CREDITO"
+        elif request.POST['opcion_pago']=="tdebito":
+            v.forma_de_pago="DEBITO"
+        elif request.POST['opcion_pago']=="virtual":
+            v.forma_de_pago="BILLETERA VIRTUAL"
+        
+        if 'taller' in request.POST:
+            v.estado="PEDIDO"
+        else:
+            v.estado="FINALIZADO"
+
+        v.save()
+        venta_id=v.pk
+
+        vtemp = venta_temporal.objects.all()
+        for vt in vtemp:
+            idpro=int(vt.id_producto.id)
+            id_producto=producto.objects.get(pk=idpro)
+            movimiento=detalle_venta.objects.create(id_producto=id_producto)
+            movimiento.id_venta.add(venta_id)
+        venta_temporal.objects.all().delete()
+    else:
+        venta_temporal.objects.all().delete()
     return render(request,"ventas.html",{"pacientes": paciente.objects.all().order_by('apellido','nombre')})
 
 def agregar_articulo(request,paciente_id):
@@ -170,7 +198,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print(request.user.first_name)
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "login.html", {

@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
     <h1 style="color:white;">Error de acceso</h1>
-
     <h4>Estimado {{ request.user.first_name }}, usted no cuenta con los permisos necesarios para acceder a esta vista.</h4>
-
     <a href="{% url 'logout_view' %}">Desconectarse</a>
-
 {% endblock %}
