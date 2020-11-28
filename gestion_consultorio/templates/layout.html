@@ -29,6 +29,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'ventas' %}"><i style="color:white;" class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'taller' %}"><i style="color:white;" class="fa fa-wrench" aria-hidden="true"></i> Taller</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gerencia' %}"><i style="color:white;" class="fa fa-pie-chart" aria-hidden="true"></i> Gerencia</a>
+            </li>
 
           </ul>
                 <a style="color: white; text-align:center;"><i style="color: white;" class="fa fa-user"></i>  {{ request.user.last_name }} {{ request.user.first_name }}</a> &nbsp;&nbsp;

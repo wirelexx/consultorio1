@@ -54,7 +54,7 @@ class venta(models.Model):
     total_vent = models.DecimalField(max_digits=8, decimal_places=2)
     id_User = models.ForeignKey(User, on_delete = models.CASCADE, blank=True)
     forma_de_pago = models.CharField(max_length=32, choices=[('EFECTIVO','efectivo'),('TARJETA DE CREDITO','tarjeta de credito'),('DEBITO','debito'),('BILLETERA VIRTUAL','billetera virtual')],blank=True)
-    estado = models.CharField(max_length=32, choices=[('PENDIENTE','pendiente'),('FINALIZADO','finalizado')],default="PENDIENTE")
+    estado = models.CharField(max_length=32, choices=[('PENDIENTE','pendiente'),('PEDIDO','pedido'),('FINALIZADO','finalizado')],default="PENDIENTE")
 
 class detalle_venta(models.Model):
     id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)
