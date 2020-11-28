@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
-
-
 {% block body %}
-
+<div class="container">
+  <h1 style="color:white">Taller</h1>
+  <h2 style="color:white">Pedidos pendientes</h2>
+  <div class="input-group mb-3">
+</div>
 <div class="container">
   <div id="div1" class ="col-md-12">
     <table border="1" class="table table-hover table-bordered bg-white table-sm">
@@ -20,7 +22,7 @@
         {% for unaVenta in ventas %}
           <tr>
             <td style="display:none;">{{unaVenta.id}}</td>
-            <td>{{unaVenta.fecha_venta}}</td>
+            <td>{{unaVenta.fecha_venta|date:"d/m/Y"}}</td>
             <td>{{unaVenta.id_paciente}}</td>
             <td>{{unaVenta.id_User}}</td>
             <td>{{unaVenta.estado}}</td>

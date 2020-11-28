@@ -252,7 +252,7 @@ def detalleventa(request, venta_id):
 @user_passes_test(acceso_taller, login_url='errorpermisos')
 @login_required(login_url='login_view')
 def taller(request):
-    return render(request,"taller.html",{"ventas":venta.objects.filter(estado="TALLER").order_by('fecha_venta')})#, "detalle_ventas":detalle_venta.objets.all()})
+    return render(request,"taller.html",{"ventas":venta.objects.filter(estado="PEDIDO").order_by('fecha_venta')})#, "detalle_ventas":detalle_venta.objets.all()})
 
 
 def acceso_gerencia(user):
