@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect    
-from .models import paciente, medico, turno, historia_medica, producto, venta_temporal
+from .models import paciente, medico, turno, historia_medica, producto, venta_temporal, venta
 from django import forms
 #from django.forms import extras
 from django.urls import reverse
@@ -216,7 +216,23 @@ def eliminar_turno(request, turno_id):
     t.delete()
     return HttpResponseRedirect(reverse('turnos'))
 
+def acceso_taller(user):
+    #define que grupos pueden acceder a la vista de taller
+    return user.groups.filter(name__in=['Vendedores']).exists()
+
+@user_passes_test(acceso_taller, login_url='errorpermisos')
+@login_required(login_url='login_view')
+def taller(request):
+    return render(request,"taller.html",{"ventas":venta.objects.all().order_by('fecha_venta')})
 
 
+def acceso_gerencia(user):
+    #define que grupos pueden acceder a la vista de taller
+    return user.groups.filter(name__in=['Vendedores']).exists()
+
+@user_passes_test(acceso_gerencia, login_url='errorpermisos')
+@login_required(login_url='login_view')
+def gerencia(request):
+    return render(request,"gerencia.html")
 
 
