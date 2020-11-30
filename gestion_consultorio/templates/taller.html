@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
+&nbsp;&nbsp;&nbsp;
+
 <div class="container">
   <h1 style="color:white">Taller</h1>
   <h2 style="color:white">Pedidos pendientes</h2>
@@ -27,8 +29,9 @@
             <td>{{unaVenta.id_User}}</td>
             <td>{{unaVenta.estado}}</td>
             <td>
-            <a href="{% url 'detalleventa' unaVenta.id %}" class="btn btn-info btn-sm">Ver detalle</a>
-            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" value="resuelto">Resuelto</button>
+            <a href="{% url 'detalleventa' unaVenta.id %}" class="btn btn-info btn-sm"><i class="fa fa-search" aria-hidden="true"></i>Ver detalle</a>
+            <!--<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" value="resuelto"><i class="fa fa-check" aria-hidden="true"></i>Resuelto</button>-->
+            <a href="{% url 'finalizar_pedido' unaVenta.id %}" class="btn btn-warning btn-sm" ><i class="fa fa-check" aria-hidden="true"></i>Finalizar</a>
             </td>
           </tr>
         {% endfor %}

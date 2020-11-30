@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {%block body%}
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" onclick="history.back()" class="btn btn-success btn-sm"  name="volver atrás"  value="volver a Pedidos">
+&nbsp;&nbsp;&nbsp;
 <div class="container">
   <h1 style="color:white">Taller</h1>
   <h2 style="color:white">Detalle venta</h2>
@@ -12,12 +16,20 @@
         <tr>
           <th style="display:none;" scope="col">Id</th>
           <th scope="col">Articulos vendidos</th>
+          <th scope="col">Clasificacion</th>
+          <th scope="col">Distancia Vision</th>
+          <th scope="col">Ojo</th>
+          <th scope="col">Armazon</th>
         </tr>
       </thead>
       <tbody id="tabla_ventas">
         {% for unDetalle in detalle %}
           <tr>
             <td>{{unDetalle.id_producto.nombre_producto}}</td>
+            <td>{{unDetalle.id_producto.clasificacion}}</td>
+            <td>{{unDetalle.id_producto.distacia_vision}}</td>
+            <td>{{unDetalle.id_producto.ojo_vision}}</td>
+            <td>{{unDetalle.id_producto.armazon}}</td>
             
           </tr>
         {% endfor %}

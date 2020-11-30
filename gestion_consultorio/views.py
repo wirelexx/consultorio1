@@ -255,12 +255,20 @@ def taller(request):
     return render(request,"taller.html",{"ventas":venta.objects.filter(estado="PEDIDO").order_by('fecha_venta')})#, "detalle_ventas":detalle_venta.objets.all()})
 
 
+@login_required(login_url='login_view')
+def finalizar_pedido(request, venta_id):
+    v = venta()
+    v = venta.objects.get(pk=int(venta_id))
+    v.estado = "FINALIZADO"
+    v.save()
+    return HttpResponseRedirect(reverse('taller'))
+
+
 def acceso_gerencia(user):
-    #define que grupos pueden acceder a la vista de taller
+    #define que grupos pueden acceder a la vista de gerencia
     return user.groups.filter(name__in=['Gerentes']).exists()
 
 @user_passes_test(acceso_gerencia, login_url='errorpermisos')
 @login_required(login_url='login_view')
 def gerencia(request):
     return render(request,"gerencia.html")
-
