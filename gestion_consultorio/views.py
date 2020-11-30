@@ -264,3 +264,10 @@ def acceso_gerencia(user):
 def gerencia(request):
     return render(request,"gerencia.html")
 
+@login_required(login_url='login_view')
+def finalizar_pedido(request, venta_id):
+    v = venta()
+    v = venta.objects.get(pk=int(venta_id))
+    v.estado = "FINALIZADO"
+    v.save()
+    return HttpResponseRedirect(reverse('taller'))
