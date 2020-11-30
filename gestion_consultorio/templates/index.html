@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="container">
-        <h1 style="color:white;">Gestion de Consultorio</h1>
-        <h2 style="color:white;">Oftalmologico</h2>
-        <h1>Bienvenido, {{ request.user.first_name }}</h1>
-    
-        <ul>
-            <li>Usuario: {{ request.user.username }}</li>
-            <li>Email: {{ request.user.email }}</li>
-        </ul>
+        <h2 style="color:white;">Gestion de Consultorio Oftalmologico</h2>
+        <div class="alert alert-success" role="alert">
+            <h1>Bienvenido, {{ request.user.first_name }}</h1>
+            <ul>
+                <li><i class="fa fa-user" aria-hidden="true"></i> {{ request.user.username }}</li>
+                <li><i class="fa fa-envelope" aria-hidden="true"></i> {{ request.user.email }}</li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

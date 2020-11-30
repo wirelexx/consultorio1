@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1 style="color:white;">Error de acceso</h1>
-    <h4>Estimado {{ request.user.first_name }}, usted no cuenta con los permisos necesarios para acceder a esta vista.</h4>
-    <a href="{% url 'logout_view' %}">Desconectarse</a>
+    <div class="container">
+    <br>
+        <div class="alert alert-danger" role="alert">
+            <h1 style="color:red;text-align:center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error de acceso</h1>
+            <h4>Estimado {{ request.user.first_name }}, usted no cuenta con los permisos necesarios para acceder a esta vista.</h4>
+        </div>
+    </div>
 {% endblock %}
