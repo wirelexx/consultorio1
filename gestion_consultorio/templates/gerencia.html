@@ -6,70 +6,32 @@
 
 
 <div class="container">
-    <h2 style="color:white;">Pacientes que asistieron a turnos</h2>
-    
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_presentes" id="pacientes_presentes1" value="option1" checked>
-    <label class="form-check-label" for="pacientes_presentes1">
-        En la semana
-    </label>
-    </div>
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_presentes" id="pacientes_presentes2" value="option2">
-    <label class="form-check-label" for="pacientes_presentes2">
-        En el mes
-    </label>
-    </div>
+    <h4 style="color:white;">Pacientes que asistieron a turnos </h4>
+    <a href="{% url 'informe_paciente' 'asistencia' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
+    <a href="{% url 'informe_paciente' 'asistencia' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
 
-    <a href="" class="btn btn-success btn-sm" id="btn-pacientes_presentes"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
- 
 </div>
 
 <div class="container">
-    <h2 style="color:white;">Pacientes que no asistieron a turnos</h2>
-    
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_ausentes" id="pacientes_ausentes1" value="option1" checked>
-    <label class="form-check-label" for="pacientes_ausentes1">
-        En la semana
-    </label>
-    </div>
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_ausentes" id="pacientes_ausentes2" value="option2">
-    <label class="form-check-label" for="pacientes_ausentes2">
-        En el mes
-    </label>
-    </div>
-
-    <a href="" class="btn btn-success btn-sm" id="pacientes_ausentes"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
- 
+    <h2 style="color:white;">Pacientes que no asistieron a turnos</h2>  
+    <a href="{% url 'informe_paciente' 'ausente' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
+    <a href="{% url 'informe_paciente' 'ausente' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
 </div>
 
 <div class="container">
     <h2 style="color:white;">Pacientes que hicieron pedidos</h2>
-    
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_pedidos" id="pacientes_pedidos1" value="option1" checked>
-    <label class="form-check-label" for="pacientes_pedidos1">
-        En la semana
-    </label>
-    </div>
-    <div class="form-check">
-    <input class="form-check-input" type="radio" name="pacientes_pedidos" id="pacientes_pedidos2" value="option2">
-    <label class="form-check-label" for="pacientes_pedidos2">
-        En el mes
-    </label>
-    </div>
+    <a href="{% url 'informe_paciente' 'compra' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
+    <a href="{% url 'informe_paciente' 'compra' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
+</div>
 
-    <a href="" class="btn btn-success btn-sm" id="btn-pacientes_pedidos"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
- 
+<div class="container">
+    <h2 style="color:white;">Productos mas vendidos en el mes actual</h2>
+    <a href="{% url 'mas_vendidos' %}" class="btn btn-success btn-sm" id="btn-Ventas_por_vendedor"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
 </div>
 
 <div class="container">
     <h2 style="color:white;">Ventas totales del mes por vendedor</h2>
-    
-    <a href="" class="btn btn-success btn-sm" id="btn-Ventas_por_vendedor"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
- 
+    <a href="{% url 'ventas_por_vendedor' %}" class="btn btn-success btn-sm" id="btn-Ventas_por_vendedor"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
 </div>
 
 

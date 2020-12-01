@@ -23,4 +23,12 @@ urlpatterns = [
     path("taller", views.taller, name="taller"),
     path("gerencia", views.gerencia, name="gerencia"),
     path("<int:venta_id>/finalizar_pedido", views.finalizar_pedido, name="finalizar_pedido"),
+    path("<str:seleccion>/<str:rango>/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("<str:seleccion>/<str:rango>/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("ausente/mes/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("ausente/semana/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("compra/mes/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("compra/semana/informe_paciente", views.informe_paciente, name="informe_paciente"),
+    path("mas_vendidos", views.mas_vendidos, name="mas_vendidos"),
+    path("ventas_por_vendedor", views.ventas_por_vendedor, name="ventas_por_vendedor"),   
 ]

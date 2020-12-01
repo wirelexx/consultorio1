@@ -7,8 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required, user_passes_test
+from datetime import timedelta
 import datetime
-from django.db.models import Sum
+from django.db.models import Sum,Count,Q
 
 
 @login_required(login_url='login_view')
@@ -272,3 +273,72 @@ def acceso_gerencia(user):
 @login_required(login_url='login_view')
 def gerencia(request):
     return render(request,"gerencia.html")
+
+def informe_paciente(request,seleccion,rango):
+    print(seleccion)
+    print(rango)
+    titulo="Informe"
+    if seleccion=="asistencia":
+        tipo_informe="turnos"
+        if rango=="semana":
+            hoy = datetime.date.today() 
+            inicio_semana = hoy - timedelta(days=hoy.weekday())
+            fin_semana = hoy + timedelta(days=6)
+            contexto=turno.objects.filter(fecha_turno__range=[inicio_semana, fin_semana]).filter(estado_turno="ATENDIDO").order_by('fecha_turno')
+            titulo="Pacientes que asistieron a turnos en la semana en curso"
+        else:
+            mes=datetime.date.today().month
+
+            contexto=turno.objects.filter(fecha_turno__month=mes).filter(estado_turno="ATENDIDO").order_by('fecha_turno')
+            titulo="Pacientes que asistieron a turnos en el mes en curso"
+    elif seleccion=="ausente":
+        tipo_informe="turnos"
+        if rango=="semana":
+            hoy = datetime.date.today() 
+            inicio_semana = hoy - timedelta(days=hoy.weekday())
+            fin_semana = hoy + timedelta(days=6)
+            contexto=turno.objects.filter(fecha_turno__range=[inicio_semana, fin_semana]).filter(estado_turno="AUSENTE").order_by('fecha_turno')
+            titulo="Pacientes que no asistieron a turnos en la semana en curso"
+        else:
+            mes=datetime.date.today().month
+            contexto=turno.objects.filter(fecha_turno__month=mes).filter(estado_turno="AUSENTE").order_by('fecha_turno')
+            titulo="Pacientes que asistieron a turnos en el mes en curso"               
+    elif seleccion=="compra":
+        tipo_informe="compras"
+        if rango=="semana":
+            hoy = datetime.date.today() 
+            inicio_semana = hoy - timedelta(days=hoy.weekday())
+            fin_semana = hoy + timedelta(days=6)
+            contexto=venta.objects.filter(fecha_venta__range=[inicio_semana,fin_semana]).order_by('fecha_venta')
+            titulo="Pacientes que hicieron compras en la semana en curso"
+        else:
+            mes=datetime.date.today().month
+            contexto=venta.objects.filter(fecha_venta__month=mes).order_by('fecha_venta')
+            titulo="Pacientes que hicieron compras en el mes en curso" 
+
+    return render(request,"informes_paciente.html",{"titulo":titulo, "contexto": contexto, "tipo_informe": tipo_informe})
+
+def mas_vendidos(request):
+    mes=datetime.date.today().month
+    #Item.objects.values("contest").annotate(Count("id"))
+    #a=detalle_venta.objects.annotate(c=Count('id_producto__nombre_producto'))#.order_by('-num_books')[:5]
+    #subtotal=venta_temporal.objects.aggregate(Sum('id_producto__precio'))
+    #print(a)
+    #b=detalle_venta.objects.count()
+    #print(b)
+    #ventas_del_mes = detalle_venta.objects.filter(id_venta__fecha_venta__month=mes)
+    #productos = producto.objects.all().annotate(ventas_totales=Count('detalle_venta'))
+    ventas1 = producto.objects.all().annotate(ventas_totales=Count('detalle_venta__venta',filter=Q(detalle_venta__fecha_venta_month=mes)))
+        #distinct=True))
+    
+    #for unProducto in productos:
+    #    unProducto.
+
+    print(ventas1[1].ventas_totales)
+    
+    #print(ventas_totales)
+    return render(request,"informes_paciente.html")
+
+def ventas_por_vendedor(request):
+    return render(request,"informes_paciente.html")   
+

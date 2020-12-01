@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{%block body%}
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<div class="container">
+  <h1 style="color:white">Informe</h1>
+  <h2 style="color:white">{{titulo}}</h2>
+  <div class="input-group mb-3">
+</div>
+<div class="container">
+  <div id="div1" class ="col-md-12">
+    <table border="1" class="table table-hover table-bordered bg-white table-sm">
+      <thead class="thead-dark">             
+        <tr>
+          <th scope="col">Apellido</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if tipo_informe == 'turnos' %}
+            {% for unPaciente in contexto %}
+                    <tr>
+                        <td>{{unPaciente.id_paciente.apellido}}</td>
+                        <td>{{unPaciente.id_paciente.nombre}}</td>
+                        <td>{{unPaciente.fecha_turno|date:"d/m/Y"}}</td>
+                    </tr>
+            {% endfor %}
+        {% else %}
+            {% for unPaciente in contexto %}
+            <tr>
+                <td>{{unPaciente.id_paciente.apellido}}</td>
+                <td>{{unPaciente.id_paciente.nombre}}</td>
+                <td>{{unPaciente.fecha_venta|date:"d/m/Y"}}</td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{%endblock%}
