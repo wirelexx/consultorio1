@@ -33,20 +33,10 @@ class historia_medica(models.Model):
 class producto(models.Model):
     nombre_producto = models.CharField(max_length=64)
     precio = models.DecimalField(max_digits=8, decimal_places=2)
-
     clasificacion = models.CharField(max_length=32, choices=[('LENTE','lente'),('ACCESORIO','accesorio'),('ETC','etc')])
-    
     distacia_vision = models.CharField(max_length=10,choices=[('LEJOS','lejos'),('CERCA','cerca')])
-
     ojo_vision = models.CharField(max_length=32, choices=[('IZQUIERDO','izquierdo'),('DERECHO','derecho')])
-  
     armazon = models.CharField(max_length=2,default="NO")
-
-    
-    #def __dict__(self):
-        #return f"{self.nombre_producto} {self.precio} {self.distacia_vision} {self.ojo_vision} {self.armazon}"
-        #return {'nombre' : self.nombre_producto, 'precio' : str(self.precio)}
-
 
 class venta(models.Model):
     id_paciente = models.ForeignKey(paciente, on_delete=models.CASCADE)

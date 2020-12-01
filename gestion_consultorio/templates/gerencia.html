@@ -31,7 +31,26 @@
 
 <div class="container">
     <h2 style="color:white;">Ventas totales del mes por vendedor</h2>
-    <a href="{% url 'ventas_por_vendedor' %}" class="btn btn-success btn-sm" id="btn-Ventas_por_vendedor"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
+
+    <label for="exampleFormControlSelect1">Seleccione mes</label>
+    <form action="{% url 'ventas_por_vendedor' %}" method="post">
+    {% csrf_token %}
+        <select name="mes" style="float:left;width:130px" class="form-control" id="exampleFormControlSelect1">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        &nbsp;&nbsp;<input type="submit" style="display:inline" class="btn btn-success btn-sm" value="Mostrar Informe">
+    </form>
 </div>
 
 

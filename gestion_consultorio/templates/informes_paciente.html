@@ -15,12 +15,21 @@
         {% if tipo_informe == 'ventas' %}
             <tr>
                 <th scope="col">Producto</th>
+                <th scope="col">Clasificacion</th>
+                <th scope="col">Vision</th>
+                <th scope="col">Ojo</th>
+                <th scope="col">Armazon</th>
                 <th scope="col">Cantidad total</th>
             </tr>
+        {% elif tipo_informe == 'ventas_vendedor' %}
+                <th scope="col">Vendedor</th>
+                <th scope="col">Ventas del mes</th>
         {% else %}
+            <tr>
                 <th scope="col">Apellido</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Fecha</th>
+            </tr>
         {% endif %}
       </thead>
       <tbody>
@@ -43,8 +52,21 @@
         {% elif tipo_informe == 'ventas' %}
             {% for unProducto in contexto %}
             <tr>
-                <td>{{unProducto.nombre_producto}}</td>
-                <td>{{unProducto.ventas_totales}}</td>
+                {% if unProducto.ventas_totales%}
+                  <td>{{unProducto.nombre_producto}}</td>
+                  <td>{{unProducto.clasificacion}}</td>
+                  <td>{{unProducto.distancia_vision}}</td>
+                  <td>{{unProducto.ojo_vision}}</td>
+                  <td>{{unProducto.armazon}}</td>
+                  <td>{{unProducto.ventas_totales}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        {% elif tipo_informe == 'ventas_vendedor'%}
+           {% for unVendedor in contexto %}
+            <tr>
+                <td>{{unVendedor.last_name}},{{unVendedor.first_name}}</td>
+                <td>{{unVendedor.ventas_totales}}</td>
             </tr>
             {% endfor %}
         {% endif %}

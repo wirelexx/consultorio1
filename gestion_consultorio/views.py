@@ -322,13 +322,17 @@ def mas_vendidos(request):
     tipo_informe="ventas"
     mes=datetime.date.today().month
     ventast = producto.objects.all().annotate(ventas_totales=Count('detalle_venta',filter=Q(detalle_venta__id_venta__fecha_venta__month=mes))).order_by('-ventas_totales')
-    
-    #print(ventas_totales[0].nombre_producto)
-    #print(ventas_totales[0].ventas_totales)
-    
     titulo="Productos mas vendidos del mes"
     return render(request,"informes_paciente.html",{"titulo":titulo,"contexto":ventast,"tipo_informe": tipo_informe})
 
+
+
 def ventas_por_vendedor(request):
-    return render(request,"informes_paciente.html")   
+    if request.method=="POST":
+        mes=int(request.POST['mes'])
+        tipo_informe="ventas_vendedor"
+        ventas_vendedor = User.objects.filter(groups__name='Vendedores').annotate(ventas_totales=Count('venta',filter=Q(venta__fecha_venta__month=mes)))
+        print(ventas_vendedor[0].username, ventas_vendedor[0].ventas_totales)
+        titulo="Ventas totales por vendedor por mes"
+        return render(request,"informes_paciente.html",{"titulo": titulo, "contexto": ventas_vendedor,"tipo_informe": tipo_informe})   
 
