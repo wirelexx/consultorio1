@@ -2,35 +2,35 @@
 
 {% block body %}
 
-<h1 style="color:white;">Informes de Gerencia</h2>
-
+<div class="container">
+    <h1 style="color:white;">Informes de Gerencia</h2>
+</div>
 
 <div class="container">
     <h4 style="color:white;">Pacientes que asistieron a turnos </h4>
     <a href="{% url 'informe_paciente' 'asistencia' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
     <a href="{% url 'informe_paciente' 'asistencia' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
-
 </div>
-
+<br>
 <div class="container">
-    <h2 style="color:white;">Pacientes que no asistieron a turnos</h2>  
+    <h4 style="color:white;">Pacientes que no asistieron a turnos</h4>  
     <a href="{% url 'informe_paciente' 'ausente' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
     <a href="{% url 'informe_paciente' 'ausente' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
 </div>
-
+<br>
 <div class="container">
-    <h2 style="color:white;">Pacientes que hicieron pedidos</h2>
+    <h4 style="color:white;">Pacientes que hicieron pedidos</h4>
     <a href="{% url 'informe_paciente' 'compra' 'semana' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por semana</a>
     <a href="{% url 'informe_paciente' 'compra' 'mes' %}" class="btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe por mes</a>
 </div>
-
+<br>
 <div class="container">
-    <h2 style="color:white;">Productos mas vendidos en el mes actual</h2>
+    <h4 style="color:white;">Productos mas vendidos en el mes actual</h4>
     <a href="{% url 'mas_vendidos' %}" class="btn btn-success btn-sm" id="btn-Ventas_por_vendedor"><i class="fa fa-search" aria-hidden="true"></i> Mostrar informe</a>
 </div>
-
+<br>
 <div class="container">
-    <h2 style="color:white;">Ventas totales del mes por vendedor</h2>
+    <h4 style="color:white;">Ventas totales del mes por vendedor</h4>
 
     <label for="exampleFormControlSelect1">Seleccione mes</label>
     <form action="{% url 'ventas_por_vendedor' %}" method="post">
