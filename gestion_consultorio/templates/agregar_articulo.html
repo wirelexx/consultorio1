@@ -20,17 +20,19 @@
           <th scope="col">Descripcion</th>
           <th scope="col">Ojo</th>
           <th scope="col">Distancia</th>
+          <th scope="col">Marco</th>
           <th scope="col">Precio</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
-      <tbody id="tabla_productos">
+      <tbody id="tabla_busqueda">
         {% for unProducto in productos %}
           <tr>
             <td style="display:none">{{unProducto.id}}</td>
             <td>{{unProducto.nombre_producto}}</td>
             <td>{{unProducto.ojo_vision}}
             <td>{{unProducto.distacia_vision}}
+            <td>{{unProducto.armazon}}
             <td style="text-align:right">$ {{unProducto.precio}}</td>
             <td>
               <a href="{% url 'venta_temp' unProducto.id paciente %}" class="btn btn-success btn-sm" id="btn-Nueva_venta"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar</a>                
@@ -43,13 +45,15 @@
 </div>
 
 <script>
+// busqueda en tabla
     $(document).ready(function(){
       $("#buscar_tabla").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#tabla_productos tr").filter(function() {
+        $("#tabla_busqueda tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
     });
 </script>
+
 {% endblock %}

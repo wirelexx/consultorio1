@@ -26,7 +26,7 @@
             <td style="display:none;">{{unaVenta.id}}</td>
             <td>{{unaVenta.fecha_venta|date:"d/m/Y"}}</td>
             <td>{{unaVenta.id_paciente}}</td>
-            <td>{{unaVenta.id_User}}</td>
+            <td>{{unaVenta.id_User.first_name}} {{unaVenta.id_User.last_name}}</td>
             <td>{{unaVenta.estado}}</td>
             <td>
             <a href="{% url 'detalleventa' unaVenta.id %}" class="btn btn-info btn-sm"><i class="fa fa-search" aria-hidden="true"></i>Ver detalle</a>
