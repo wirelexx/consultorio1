@@ -319,25 +319,15 @@ def informe_paciente(request,seleccion,rango):
     return render(request,"informes_paciente.html",{"titulo":titulo, "contexto": contexto, "tipo_informe": tipo_informe})
 
 def mas_vendidos(request):
+    tipo_informe="ventas"
     mes=datetime.date.today().month
-    #Item.objects.values("contest").annotate(Count("id"))
-    #a=detalle_venta.objects.annotate(c=Count('id_producto__nombre_producto'))#.order_by('-num_books')[:5]
-    #subtotal=venta_temporal.objects.aggregate(Sum('id_producto__precio'))
-    #print(a)
-    #b=detalle_venta.objects.count()
-    #print(b)
-    #ventas_del_mes = detalle_venta.objects.filter(id_venta__fecha_venta__month=mes)
-    #productos = producto.objects.all().annotate(ventas_totales=Count('detalle_venta'))
-    ventas1 = producto.objects.all().annotate(ventas_totales=Count('detalle_venta',filter=Q(detalle_venta__id_venta__fecha_venta__month=mes)))
-        #distinct=True))
+    ventast = producto.objects.all().annotate(ventas_totales=Count('detalle_venta',filter=Q(detalle_venta__id_venta__fecha_venta__month=mes))).order_by('-ventas_totales')
     
-    #for unProducto in productos:
-    #    unProducto.
-
-    print(ventas1[1].ventas_totales)
+    #print(ventas_totales[0].nombre_producto)
+    #print(ventas_totales[0].ventas_totales)
     
-    #print(ventas_totales)
-    return render(request,"informes_paciente.html")
+    titulo="Productos mas vendidos del mes"
+    return render(request,"informes_paciente.html",{"titulo":titulo,"contexto":ventast,"tipo_informe": tipo_informe})
 
 def ventas_por_vendedor(request):
     return render(request,"informes_paciente.html")   

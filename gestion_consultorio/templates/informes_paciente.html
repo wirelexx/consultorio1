@@ -12,11 +12,16 @@
   <div id="div1" class ="col-md-12">
     <table border="1" class="table table-hover table-bordered bg-white table-sm">
       <thead class="thead-dark">             
-        <tr>
-          <th scope="col">Apellido</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Fecha</th>
-        </tr>
+        {% if tipo_informe == 'ventas' %}
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad total</th>
+            </tr>
+        {% else %}
+                <th scope="col">Apellido</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha</th>
+        {% endif %}
       </thead>
       <tbody>
         {% if tipo_informe == 'turnos' %}
@@ -27,12 +32,19 @@
                         <td>{{unPaciente.fecha_turno|date:"d/m/Y"}}</td>
                     </tr>
             {% endfor %}
-        {% else %}
+        {% elif tipo_informe == 'compras' %}
             {% for unPaciente in contexto %}
             <tr>
                 <td>{{unPaciente.id_paciente.apellido}}</td>
                 <td>{{unPaciente.id_paciente.nombre}}</td>
                 <td>{{unPaciente.fecha_venta|date:"d/m/Y"}}</td>
+            </tr>
+            {% endfor %}
+        {% elif tipo_informe == 'ventas' %}
+            {% for unProducto in contexto %}
+            <tr>
+                <td>{{unProducto.nombre_producto}}</td>
+                <td>{{unProducto.ventas_totales}}</td>
             </tr>
             {% endfor %}
         {% endif %}
