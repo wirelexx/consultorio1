@@ -5,7 +5,6 @@ from django import forms
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-
 from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import timedelta
 import datetime
@@ -275,8 +274,6 @@ def gerencia(request):
     return render(request,"gerencia.html")
 
 def informe_paciente(request,seleccion,rango):
-    print(seleccion)
-    print(rango)
     titulo="Informe"
     if seleccion=="asistencia":
         tipo_informe="turnos"
@@ -332,7 +329,6 @@ def ventas_por_vendedor(request):
         mes=int(request.POST['mes'])
         tipo_informe="ventas_vendedor"
         ventas_vendedor = User.objects.filter(groups__name='Vendedores').annotate(ventas_totales=Count('venta',filter=Q(venta__fecha_venta__month=mes)))
-        print(ventas_vendedor[0].username, ventas_vendedor[0].ventas_totales)
         titulo="Ventas totales por vendedor por mes"
         return render(request,"informes_paciente.html",{"titulo": titulo, "contexto": ventas_vendedor,"tipo_informe": tipo_informe})   
 

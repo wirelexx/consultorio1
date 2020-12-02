@@ -10,8 +10,8 @@
       <div class="alert alert-info" role="alert">
         <input type="hidden" name="id_paciente" value={{paciente.id}}>
         <input type="hidden" id="input_total_venta" name="total_venta" value={{subtotal.id_producto__precio__sum}}>
-        <label style="float:right"> Enviar a taller: <input style="text-align:right;" name="taller" type="checkbox" aria-label="Checkbox for following text input"></label>
-        <label style="float:right"><input type="submit" id="finaliza_pedido" class="btn btn-success btn-sm" img="class=fa fa-shopping-cart" value="Finalizar pedido"></label>
+        <input style="float:right" type="submit" id="finaliza_pedido" class="btn btn-success btn-sm" img="class=fa fa-shopping-cart" value="Finalizar pedido">
+        <label style="float:right">Enviar a taller: &nbsp;<input style="text-align:right;" name="taller" type="checkbox" aria-label="Checkbox for following text input">&nbsp;&nbsp;</label>
         <label style="font-size:34px">Subtotal:</label>
         <label style="color:green;font-size:34px;">$ {{subtotal.id_producto__precio__sum|floatformat:2}}</label>
       </div>
